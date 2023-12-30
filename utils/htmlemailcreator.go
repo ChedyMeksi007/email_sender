@@ -1,0 +1,6 @@
+package emailhtml
+
+func HtmlEmailCreator(){
+
+
+}
