@@ -1,12 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"os"
-	
-	gomail "gopkg.in/gomail.v2"
+	"log"
 
-	"github.com/ChedyMeksi007/email_sender/utils"
+	gomail "gopkg.in/gomail.v2"
+	"github.com/ChedyMeksi007/email_sender/excelreader"
+	htmlem "github.com/ChedyMeksi007/email_sender/htmlemailcreator"
 	"github.com/joho/godotenv"
 )
 
@@ -26,9 +26,22 @@ func main() {
 	//recepients 
 	to := excelreader.ExcelReader("test.xlsx")
 	
-	from := os.Getenv("FROM")
+	from := make([]string,1,1)
+	from = append(from,os.Getenv("FROM"))
+	h := make(map[string][]string)
+
+	h["to"]= to
+	h["from"] = from
+	
 	pwd := os.Getenv("PWD")
 
-	msg := messageCreator(from,to)
+	msg := htmlem.HtmlEmailCreator(h,"test.html","image.png")
+	
 
+
+	d := gomail.NewDialer("smtp.example.com", 587, from[0], pwd)
+
+	if err:= d.DialAndSend(msg); err!=nil{
+		log.Fatal(err)
+	}
 }
