@@ -1,7 +1,6 @@
 package excelreader
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/xuri/excelize/v2"
@@ -16,7 +15,7 @@ func ExcelReader(filepath string) []string {
 		log.Fatal(err)
 	}
 
-	cols, err := f.GetCols("Sheet1")
+	cols, err := f.GetCols("Tabellenblatt1")
 
 	if err != nil {
 		log.Fatal(err)
@@ -26,7 +25,7 @@ func ExcelReader(filepath string) []string {
 
 	for _, col := range cols {
 		for _, rowCell := range col {
-			recepients, err = append(recepients, rowCell)
+			recepients = append(recepients, rowCell)
 		}
 	}
 
