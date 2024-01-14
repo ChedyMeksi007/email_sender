@@ -12,4 +12,5 @@ func HtmlEmailCreator(to []string, from string, htmlData string, imagepath strin
     msg.SetBody("text/html", htmlData)
     msg.Attach(imagepath)	
 
+    return msg
 }
